@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="pyrohelpo",
-    version="3.1.3",
+    version="4.1.2",
     author="Vishal-1756",
     author_email="vishalborse199@gmail.com",
     description="A powerful pagination library for Pyrogram bots",
