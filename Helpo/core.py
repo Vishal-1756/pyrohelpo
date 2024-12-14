@@ -53,6 +53,9 @@ class Helpo:
         if texts:
             self.texts.update(texts)
         self.modules: Dict[str, Dict[str, Any]] = {}
+        self.short_help = texts.get("short_help", False)
+        self.support_as_callback = texts.get("support_as_callback", False)
+        self.support_c_back_name = texts.get("support_c_back_name", None)
         self.load_modules()
         self.monkeypatch_client()
 
@@ -77,6 +80,15 @@ class Helpo:
     def monkeypatch_client(self):
         @self.client.on_message(filters.command("help"))
         async def help_command(client, message):
+            args = message.text.split()[1:]
+            if args and self.short_help:
+                module_name = args[0]
+                if module_name in self.modules:
+                    await self.show_module_help(message, module_name)
+                else:
+                    await message.reply("Module not found.")
+                return
+
             if message.chat.type in [ChatType.SUPERGROUP, ChatType.GROUP]:
                 buttons = [
                     [
@@ -141,16 +153,22 @@ class Helpo:
 
         await self.send_message(chat_id, text, reply_markup=keyboard, message_id=message_id)
 
-    async def show_module_help(self, callback_query: CallbackQuery, module_name: str):
+    async def show_module_help(self, query_or_message, module_name: str):
         module = self.modules.get(module_name)
         if module:
             text = f"{self.texts['module_help_title'].format(module_name=module['name'])}\n\n{self.texts['module_help_intro'].format(help_text=module['help'])}"
             keyboard = InlineKeyboardMarkup(
                 [[InlineKeyboardButton(self.texts["back_button"], callback_data="help_back")]]
             )
-            await callback_query.edit_message_text(text, reply_markup=keyboard)
+            if isinstance(query_or_message, CallbackQuery):
+                await query_or_message.edit_message_text(text, reply_markup=keyboard)
+            else:
+                await query_or_message.reply(text, reply_markup=keyboard)
         else:
-            await callback_query.answer("Module not found!", show_alert=True)
+            if isinstance(query_or_message, CallbackQuery):
+                await query_or_message.answer("Module not found!", show_alert=True)
+            else:
+                await query_or_message.reply("Module not found!")
 
     async def send_message(self, chat_id: int, text: str, reply_markup: InlineKeyboardMarkup = None, message_id: int = None):
         try:
