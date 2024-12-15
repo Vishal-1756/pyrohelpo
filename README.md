@@ -51,6 +51,7 @@ helpo = Helpo(
 ### Advanced Configuration
 
 ```python
+json 
 custom_texts = {
     "help_menu_title": "**🛠 Custom Help Menu**",
     "help_menu_intro": "Available modules ({count}):\n{modules}\n\nTap on a module to explore.",
@@ -62,9 +63,9 @@ custom_texts = {
     "next_button": "➡️ Next Page",
     "support_button": "💬 Contact Support",
     "support_url": "https://t.me/YourSupportBot",
-    "group_help_message": "Click The Button To Access Help",
-    "group_pvt_button": "See In Private",
-    "group_open_here": "Open Here"
+    "short_help": True,
+    "support_as_callback": True,
+    "support_c_back_name": "say_hi"
 }
 
 helpo = Helpo(
@@ -225,3 +226,6 @@ Need help? Join our [support chat](https://t.me/Blank_Advice) or create an issue
 ---
 
 Made with ❤️ by the Helpo team
+<!---
+# made by @Beingcat
+--->

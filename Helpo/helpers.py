@@ -1,4 +1,4 @@
-# made by @biengcat
+# made by @Beingcat
 from typing import List
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 

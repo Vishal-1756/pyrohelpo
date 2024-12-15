@@ -1,4 +1,4 @@
-# made by @biengcat
+# made by @Beingcat
 from Helpo.core import Helpo
 
 __all__ = ["Helpo"]

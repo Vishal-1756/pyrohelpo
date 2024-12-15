@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PyroHelpo - Docs</title>
+    <title>PyroHelpo - A Powerful Pagination Library For PyroGram</title>
+    <meta name="description" content="PyroHelpo: A powerful and flexible pagination library for Pyrogram bots that automatically handles help commands and module organization.">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="PyroHelpo">
-    <meta name="twitter:description" content="- A Powerful Pagination Library For PyroGram">
-    <meta name="twitter:image" content="https://storage.codesman.tech/file/goxxp">
+    <meta name="twitter:description" content="A Powerful Pagination Library For PyroGram">
+    <meta name="twitter:image" content="https://socialify.git.ci/Vishal-1756/pyrohelpo/image?description=1&font=KoHo&name=1&owner=1&pattern=Charlie%20Brown&theme=Dark">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -48,7 +49,6 @@
             padding: 20px;
         }
         
-        /* Hamburger Menu Styles */
         .hamburger-menu {
             position: fixed;
             top: 20px;
@@ -70,7 +70,6 @@
             border-radius: 3px;
         }
         
-        /* Navigation Styles */
         .nav-menu {
             position: fixed;
             top: 0;
@@ -104,7 +103,6 @@
             color: var(--primary-color);
         }
         
-        /* Desktop Header */
         .desktop-header {
             background: var(--menu-background);
             padding: 1rem;
@@ -136,7 +134,6 @@
             z-index: 1;
         }
         
-        /* Responsive Design */
         @media (max-width: 1024px) {
             .desktop-header {
                 display: none;
@@ -219,47 +216,87 @@
         .gallery img:hover {
             transform: scale(1.05);
         }
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        .badge-blue { background-color: #007bff; }
+        .badge-green { background-color: #28a745; }
+        .badge-yellow { background-color: #ffc107; color: #000; }
     </style>
 </head>
 <body>
     <canvas id="stars"></canvas>
     
-    <!-- Hamburger Menu Button -->
     <button class="hamburger-menu" aria-label="Toggle navigation menu">
         <span></span>
         <span></span>
         <span></span>
     </button>
     
-    <!-- Sliding Navigation Menu -->
     <nav class="nav-menu" id="navMenu">
         <ul>
             <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
             <li><a href="#installation">Installation</a></li>
             <li><a href="#usage">Usage</a></li>
             <li><a href="#customization">Customization</a></li>
+            <li><a href="#methods">Methods</a></li>
+            <li><a href="#error-handling">Error Handling</a></li>
             <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#examples">Examples</a></li>
+            <li><a href="#contributors">Contributors</a></li>
         </ul>
     </nav>
     
-    <!-- Desktop Header -->
     <header class="desktop-header">
         <ul>
             <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
             <li><a href="#installation">Installation</a></li>
             <li><a href="#usage">Usage</a></li>
             <li><a href="#customization">Customization</a></li>
+            <li><a href="#methods">Methods</a></li>
+            <li><a href="#error-handling">Error Handling</a></li>
             <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#examples">Examples</a></li>
+            <li><a href="#contributors">Contributors</a></li>
         </ul>
     </header>
 
     <main class="container">
         <section id="home">
-            <h1>Pyro Helpo Documentation</h1>
+            <h1>PyroHelpo Documentation</h1>
             <p>A powerful and flexible pagination library for Pyrogram bots that automatically handles help commands and module organization.</p>
+            <div class="badges">
+                <span class="badge badge-blue">Python 3.7+</span>
+                <span class="badge badge-green">Pyrogram 2.0+</span>
+                <span class="badge badge-yellow">MIT License</span>
+            </div>
         </section>
+
+        <section id="features">
+            <h2>Features</h2>
+            <ul>
+                <li>🔄 Automatic module discovery and help text organization</li>
+                <li>📱 Beautiful paginated help menus with inline buttons</li>
+                <li>🎯 Support for both command-based and button-based help</li>
+                <li>🎨 Customizable button layouts and texts</li>
+                <li>🔌 Easy integration with existing Pyrogram bots</li>
+                <li>📝 Support for rich media in help messages (photos, videos)</li>
+                <li>🔗 Deep linking support for direct access to help menus</li>
+                <li>🌐 Group chat support with private message options</li>
+                <li>🎭 Flexible parse mode selection</li>
+                <li>🖼️ Media support with photo and video options</li>
+            </ul>
+        </section>
+
         <section id="installation">
             <h2>Installation</h2>
             <div class="code-block">
@@ -267,6 +304,7 @@
                 <code>pip install pyrohelpo</code>
             </div>
         </section>
+
         <section id="usage">
             <h2>Usage</h2>
             <h3>Basic Setup</h3>
@@ -303,9 +341,9 @@ custom_texts = {
     "next_button": "➡️ Next Page",
     "support_button": "💬 Contact Support",
     "support_url": "https://t.me/YourSupportBot",
-    "group_help_message": "Click The Button To Access Help",
-    "group_pvt_button": "See In Private",
-    "group_open_here": "Open Here"
+    "short_help": True,
+    "support_as_callback": True,
+    "support_c_back_name": "say_hi"
 }
 
 helpo = Helpo(
@@ -318,7 +356,8 @@ helpo = Helpo(
     photo="path/to/photo.jpg",  # Optional: Add photo to help messages
     video="path/to/video.mp4",  # Optional: Add video to help messages
     parse_mode=ParseMode.HTML,  # Optional: Change parse mode (default: MARKDOWN)
-    disable_web_page_preview=False  # Optional: Enable web preview (default: True)
+    disable_web_page_preview=False,  # Optional: Enable web preview (default: True)
+    short_help=True  # Optional: Enable short help mode
 )
                 </code>
             </div>
@@ -337,9 +376,10 @@ HELP = """
                 </code>
             </div>
         </section>
+
         <section id="customization">
             <h2>Customization Options</h2>
-            <p>Helpo offers various customization options to tailor the help menu to your bot's needs:</p>
+            <p>PyroHelpo offers various customization options to tailor the help menu to your bot's needs:</p>
             <ul>
                 <li><code>buttons_per_page</code>: Set the number of buttons displayed per page (default: 6)</li>
                 <li><code>texts</code>: Customize all text messages and button labels</li>
@@ -347,8 +387,49 @@ HELP = """
                 <li><code>photo</code> and <code>video</code>: Add rich media to your help messages</li>
                 <li><code>parse_mode</code>: Set the parse mode for help messages (default: ParseMode.MARKDOWN)</li>
                 <li><code>disable_web_page_preview</code>: Enable or disable web page previews in help messages</li>
+                <li><code>short_help</code>: Enable or disable short help mode for concise module descriptions</li>
             </ul>
         </section>
+
+        <section id="methods">
+            <h2>Methods and Attributes</h2>
+            <h3>Helpo Class</h3>
+            <h4>Attributes:</h4>
+            <ul>
+                <li><code>client</code>: Pyrogram Client instance</li>
+                <li><code>modules_path</code>: Path to modules directory</li>
+                <li><code>buttons_per_page</code>: Number of buttons per page</li>
+                <li><code>help_var</code>: Variable name for help text (default: "**HELP**")</li>
+                <li><code>module_var</code>: Variable name for module name (default: "**MODULE**")</li>
+                <li><code>photo</code>: Optional photo URL/path</li>
+                <li><code>video</code>: Optional video URL/path</li>
+                <li><code>parse_mode</code>: Message parse mode</li>
+                <li><code>disable_web_page_preview</code>: Web preview setting</li>
+                <li><code>texts</code>: Customizable text dictionary</li>
+                <li><code>short_help</code>: Boolean to enable short help mode</li>
+            </ul>
+            <h4>Methods:</h4>
+            <ul>
+                <li><code>load_modules()</code>: Loads all modules from the specified path</li>
+                <li><code>show_help_menu(chat_id: int, page: int = 1, message_id: int = None)</code>: Displays the main help menu</li>
+                <li><code>show_module_help(query_or_message, module_name: str)</code>: Shows help for a specific module</li>
+                <li><code>send_message(chat_id: int, text: str, reply_markup: InlineKeyboardMarkup = None, message_id: int = None)</code>: Sends a message with optional media and keyboard</li>
+                <li><code>monkeypatch_client()</code>: Patches the Pyrogram client to handle the `/help` command</li>
+            </ul>
+        </section>
+
+        <section id="error-handling">
+            <h2>Error Handling</h2>
+            <p>PyroHelpo includes comprehensive error handling for:</p>
+            <ul>
+                <li>Invalid module files</li>
+                <li>Missing required attributes</li>
+                <li>Media loading failures</li>
+                <li>Message sending errors</li>
+                <li>Callback query processing</li>
+            </ul>
+        </section>
+
         <section id="gallery">
             <h2>Gallery</h2>
             <div class="gallery">
@@ -358,36 +439,18 @@ HELP = """
                 <img src="https://i.ibb.co/BzFD1kj/ad4c32676c6e.jpg" alt="Help menu of a module">
             </div>
         </section>
-        <section id="examples">
-            <h2>Examples</h2>
-            <h3>Deep Linking Support</h3>
-            <div class="code-block">
-                <button class="copy-btn">Copy</button>
-                <code>
-@app.on_message(filters.command("start"))
-async def start_command(client, message):
-    if len(message.text.split()) > 1:
-        param = message.text.split(None, 1)[1]
-        if param == "help":
-            await client.show_help_menu(message.chat.id)
-    else:
-        await message.reply("Welcome! Use /help to see available commands.")
-                </code>
-            </div>
-            <h3>Adding a Help Button</h3>
-            <div class="code-block">
-                <button class="copy-btn">Copy</button>
-                <code>
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-@app.on_message(filters.command("start"))
-async def start_command(client, message):
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("Help", callback_data="global_help")]
-    ])
-    await message.reply("Welcome! Click the button below for help.", reply_markup=keyboard)
-                </code>
-            </div>
+        <section id="contributors">
+            <h2>Contributors</h2>
+            <ul>
+                <li><a href="https://github.com/vishal-1756">vishal-1756</a></li>
+                <li><a href="https://github.com/siyu-xd">siyu-xd</a></li>
+            </ul>
+        </section>
+
+        <section id="support">
+            <h2>Support</h2>
+            <p>Need help? Join our <a href="https://t.me/Blank_Advice">support chat</a> or create an issue on our <a href="https://github.com/Vishal-1756/Helpo">GitHub repository</a>.</p>
         </section>
     </main>
 
@@ -405,8 +468,7 @@ async def start_command(client, message):
                 this.size = Math.random() * 2;
                 this.speedX = Math.random() * 3 - 1.5;
                 this.speedY = Math.random() * 3 - 1.5;
-                this.
-twinkleSpeed = Math.random() * 0.1;
+                this.twinkleSpeed = Math.random() * 0.1;
                 this.twinklePhase = Math.random() * Math.PI * 2;
             }
             update() {
@@ -518,5 +580,3 @@ twinkleSpeed = Math.random() * 0.1;
     </script>
 </body>
 </html>
-
- 
