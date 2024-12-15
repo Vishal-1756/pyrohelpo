@@ -77,7 +77,8 @@ helpo = Helpo(
     photo="path/to/photo.jpg",  # Optional: Add photo to help messages
     video="path/to/video.mp4",  # Optional: Add video to help messages
     parse_mode=ParseMode.HTML,  # Optional: Change parse mode (default: MARKDOWN)
-    disable_web_page_preview=False  # Optional: Enable web preview (default: True)
+    disable_web_page_preview=False,  # Optional: Enable web preview (default: True)
+    short_help=True  # Optional: Enable short help mode
 )
 ```
 
@@ -99,6 +100,9 @@ HELP = """
 ### Custom Class Implementation
 
 ```python
+from pyrogram import Client
+from Helpo import Helpo
+
 class Bot(Client):
     def __init__(self):
         super().__init__(
@@ -126,12 +130,11 @@ class Bot(Client):
 
 ### Group Chat Support
 
-The new Helpo version automatically handles group chats by providing options to:
+Helpo automatically handles group chats by providing options to:
 
 - View help menu in private chat
 - View help menu directly in the group
-- Customize group chat behavior through texts dictionary
-
+- Customize group chat behavior through the texts dictionary
 
 ### Deep Linking Support
 
@@ -146,41 +149,27 @@ async def start_command(client, message):
         await message.reply("Welcome! Use /help to see available commands.")
 ```
 
-## Customization Options 🎨
+### Monkeypatch Client
 
-### Available Text Customizations
-
-All text elements can be customized through the `texts` dictionary:
-
-- `help_menu_title`: Title of the main help menu
-- `help_menu_intro`: Introduction text with module count
-- `module_help_title`: Title for individual module help
-- `module_help_intro`: Introduction text for module help
-- `no_modules_loaded`: Message when no modules are found
-- `back_button`: Text for back button
-- `prev_button`: Text for previous page button
-- `next_button`: Text for next page button
-- `support_button`: Text for support button
-- `support_url`: URL for support button
-- `group_help_message`: Message shown in groups
-- `group_pvt_button`: Text for private chat button
-- `group_open_here`: Text for in-group help button
-
-
-### Media Support
-
-You can enhance your help menu with either photos or videos:
+To automatically handle the `/help` command in your bot, you can use the `monkeypatch_client` method:
 
 ```python
+from pyrogram import Client
+from Helpo import Helpo
+
+app = Client("my_bot")
+
 helpo = Helpo(
     client=app,
     modules_path="plugins",
-    photo="https://example.com/help-banner.jpg"  # OR
-    video="https://example.com/help-tutorial.mp4"
+    buttons_per_page=6,
+    texts=custom_texts
 )
-```
 
-Note: You can only use either photo or video, not both simultaneously.
+helpo.monkeypatch_client()
+
+app.run()
+```
 
 ## Methods and Attributes 📚
 
@@ -198,14 +187,15 @@ Note: You can only use either photo or video, not both simultaneously.
 - `parse_mode`: Message parse mode
 - `disable_web_page_preview`: Web preview setting
 - `texts`: Customizable text dictionary
-
+- `short_help`: Boolean to enable short help mode
 
 #### Methods:
 
 - `load_modules()`: Loads all modules from the specified path
-- `show_help_menu()`: Displays the main help menu
-- `show_module_help()`: Shows help for a specific module
-
+- `show_help_menu(chat_id: int, page: int = 1, message_id: int = None)`: Displays the main help menu
+- `show_module_help(query_or_message, module_name: str)`: Shows help for a specific module
+- `send_message(chat_id: int, text: str, reply_markup: InlineKeyboardMarkup = None, message_id: int = None)`: Sends a message with optional media and keyboard
+- `monkeypatch_client()`: Patches the Pyrogram client to handle the `/help` command
 
 ## Error Handling
 
@@ -217,12 +207,10 @@ Helpo includes comprehensive error handling for:
 - Message sending errors
 - Callback query processing
 
-
 ## Contributors 👥
 
 - [vishal-1756](https://github.com/vishal-1756)
 - [siyu-xd](https://github.com/siyu-xd)
-
 
 ## License 📄
 

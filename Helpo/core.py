@@ -82,25 +82,18 @@ class Helpo:
         async def help_command(client, message):
             args = message.text.split()[1:]
             if args and self.short_help:
-                module_name = args[0]
-                if module_name in self.modules:
-                    await self.show_module_help(message, module_name)
+                module_name = args[0].lower()
+                normalized_modules = {k.lower(): v for k, v in self.modules.items()}
+                if module_name in normalized_modules:
+                    await self.show_module_help(message, normalized_modules[module_name]['name'])
                 else:
-                    await message.reply("Module not found.")
+                    pass
                 return
 
             if message.chat.type in [ChatType.SUPERGROUP, ChatType.GROUP]:
                 buttons = [
-                    [
-                        InlineKeyboardButton(
-                            self.texts["group_pvt_button"],
-                            url=self.texts["group_pvt_url"]
-                        ),
-                        InlineKeyboardButton(
-                            self.texts["group_open_here"],
-                            callback_data="global_help"
-                        ),
-                    ]
+                    [InlineKeyboardButton(self.texts["group_pvt_button"], url=self.texts["group_pvt_url"])],
+                    [InlineKeyboardButton(self.texts["group_open_here"], callback_data="global_help")]
                 ]
                 keyboard = InlineKeyboardMarkup(buttons)
                 await message.reply(
