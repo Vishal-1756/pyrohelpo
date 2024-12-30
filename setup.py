@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="pyrohelpo",
-    version="4.1.4",
+    version="4.1.5",
     author="Vishal-1756",
     author_email="vishalborse199@gmail.com",
     description="A powerful pagination library for Pyrogram bots",
@@ -27,7 +27,7 @@ setup(
     ],
     python_requires=">=3.7",
     install_requires=[
-        "pyrogram",
+        "kurigram",
         "tgcrypto",
     ],
     keywords=["pyrogram", "telegram", "bot", "pagination", "help-menu"],
